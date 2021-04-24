@@ -48,19 +48,19 @@
                 <form>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Nome:</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <input [(ngModel)]='cliente.nome' name="nome" type="text" class="form-control" id="recipient-name">
                     </div>
 
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Telefone:</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <label for="recipient-name" class="col-form-label">Telefone (ex: 11940885522):</label>
+                        <input [(ngModel)]='cliente.telefone' name="telefone" type="text" class="form-control" id="recipient-name">
                     </div>
 
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Cadastar</button>
+                <button type="button" class="btn btn-primary" (click)='cadastrar()' data-dismiss="modal">Cadastrar</button>
             </div>
         </div>
     </div>
@@ -81,15 +81,38 @@
                 <form>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Digite o telefone do cliente:</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <input [(ngModel)]="    telefoneCliente" name="telefoneCliente" type="text" class="form-control" id="recipient-name">
                     </div>
-
                 </form>
+
+                <div class="modal-footer center">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)='findByTelefone()'>Consultar</button>
+                </div>
+                <div style=" height: 300px; overflow: auto;">
+                    <table class="table table-sm" style="height: 100px; overflow: auto;">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col"></th>
+                                <th scope="col">Telefone</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let cliente of listaCliente'>
+                                <th>{{cliente.id}}</th>
+                                <td>{{cliente.nome}}</td>
+                                <td></td>
+                                <td>{{cliente.telefone}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Consultar</button>
-            </div>
+
         </div>
     </div>
 </div>
