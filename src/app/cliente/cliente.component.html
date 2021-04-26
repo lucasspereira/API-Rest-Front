@@ -1,6 +1,13 @@
 <div class="container mt-5">
     <div class="row center">
-        <h1>
+
+        <div class="img-fluid">
+            <img src="../../assets/img/logo (1).png" alt="">
+        </div>
+    </div>
+
+    <div>
+        <h1 class="row center">
             Seja Bem Vindo!
         </h1>
     </div>
@@ -11,27 +18,73 @@
 
     <div class="mt-5">
         <div class="row center mb-3">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#cadastrarCliente" data-whatever="@mdo">Cadastrar Cliente</button>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#cadastrarCliente" data-whatever="@mdo">Cadastrar Cliente</button>
         </div>
         <hr class="col-md-5">
 
         <div class="row center mb-3">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#consultarCliente" data-whatever="@fat">Consultar Cliente</button>
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#consultarCliente" data-whatever="@fat">Consultar Cliente</button>
         </div>
+
         <hr class="col-md-5">
 
+        <p class="row center">
+            <a class="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Editar/Excluir Cliente
+            </a>
+        </p>
 
-        <div class="row center mb-3">
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarCliente" data-whatever="@getbootstrap">Editar Cliente</button>
-        </div>
-        <hr class="col-md-5">
+        <div class="collapse" id="collapseExample">
+            <div class="">
+                <div class="d-flex justify-content-center">
+                    <form class="tm-input">
+                        <div class="form-group center">
+                            <label for="recipient-name" class="col-form-label">Digite o telefone do cliente:</label>
+                            <input (keyup)='findByTelefone()' [(ngModel)]="telefoneCliente" name="telefoneCliente" type="text" class="form-control" id="recipient-name">
+                        </div>
+                    </form>
+                </div>
 
-        <div class="row center mb-3">
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#excluirCliente" data-whatever="@getbootstrap">Excluir Cliente</button>
+                <table class="table table-sm" style="height: 100px; overflow: auto;">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col"></th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">Alterar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let cliente of listaCliente'>
+                            <th>{{cliente.id}}</th>
+                            <td>{{cliente.nome}}</td>
+                            <td></td>
+                            <td>{{cliente.telefone}}</td>
+                            <td>
+                                <div class="d-flex">
+                                    <a href="" data-toggle="modal" data-target="#modalExemplo">
+                                        <div class="align-items-center d-flex">
+                                            <button type="button" class="btn btn-secondary" (click)='setId(cliente.id)' [routerLink]="['/cliente', cliente.id]">
+                                                Editar
+                                              </button>
+                                        </div>
+                                    </a>
+                                    <a href="" data-toggle="modal" data-target="#modalExcluir">
+                                        <div class="ml-2">
+                                            <button type="button" class="btn btn-danger" (click)='setId(cliente.id)' [routerLink]="['/cliente', cliente.id]">
+                                                Apagar
+                                              </button>
+                                        </div>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <hr class="col-md-5">
     </div>
-
 </div>
 
 <!--Modal Cadastrar Cliente-->
@@ -47,7 +100,7 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Nome:</label>
+                        <label for="recipient-name" class="col-form-label">Novo Cliente:</label>
                         <input [(ngModel)]='cliente.nome' name="nome" type="text" class="form-control" id="recipient-name">
                     </div>
 
@@ -81,13 +134,12 @@
                 <form>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Digite o telefone do cliente:</label>
-                        <input [(ngModel)]="    telefoneCliente" name="telefoneCliente" type="text" class="form-control" id="recipient-name">
+                        <input (keyup)='findByTelefone()' [(ngModel)]="telefoneCliente" name="telefoneCliente" type="text" class="form-control" id="telefoneCliente">
                     </div>
                 </form>
 
                 <div class="modal-footer center">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" (click)='findByTelefone()'>Consultar</button>
                 </div>
                 <div style=" height: 300px; overflow: auto;">
                     <table class="table table-sm" style="height: 100px; overflow: auto;">
@@ -118,28 +170,28 @@
 </div>
 <!--/Modal Consulta Cliente-->
 
-<!--Modal Editar Cliente-->
-<div class="modal fade" id="editarCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal Editar Cliente -->
+<div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Editar Cliente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-          <span aria-hidden="true">&times;</span>
-        </button>
-            </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Digite o telefone do cliente:</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <h5> Editar Cliente {{cliente.nome}} </h5>
+                        <label for="nome"> Insira o novo nome: </label>
+                        <input type="text" class="form-control" [(ngModel)]='cliente.nome' name="nome" id="nome">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Novo Telefone (ex: 11940885522):</label>
+                        <input [(ngModel)]='cliente.telefone' name="telefone" type="text" class="form-control" id="recipient-name">
                     </div>
 
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Pesquisar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" routerLink='/cliente'>Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)='atualizar()' data-dismiss="modal">Atualizar</button>
             </div>
         </div>
     </div>
@@ -147,29 +199,27 @@
 <!--/Modal Editar Cliente-->
 
 <!--Modal Excluir Cliente-->
-<div class="modal fade" id="excluirCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal fade" id="modalExcluir" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Excluir Cliente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-          <span aria-hidden="true">&times;</span>
-        </button>
-            </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Digite o telefone do cliente:</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <h5> Excluir Cliente </h5>
                     </div>
-
                 </form>
+
+                <div>
+                    <h5> Tem certeza que deseja excluir o cliente? </h5>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Pesquisar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" routerLink='cliente'>Cancelar</button>
+                <button type=" button " class="btn btn-danger " data-dismiss="modal" (click)='deletarCliente()'>Apagar</button>
             </div>
         </div>
     </div>
 </div>
+
 <!--/Modal Excluir Cliente-->

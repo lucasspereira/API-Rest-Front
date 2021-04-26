@@ -5,3 +5,18 @@
 .col-md-2 {
     margin: 0;
 }
+
+.tm-icons {
+    width: 50px;
+    height: 5px;
+}
+
+.icons-edit-del {
+    font-size: 1.5rem;
+    color: #004AAD;
+}
+
+.tm-input {
+    width: 30%;
+    justify-content: center;
+}
